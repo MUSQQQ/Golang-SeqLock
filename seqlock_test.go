@@ -1,10 +1,10 @@
 package seqlock
+
 import (
 	"github.com/stretchr/testify/require"
 	"testing"
 	"time"
 )
-
 
 func TestWrite(t *testing.T) {
 	MockSeqLock := NewSeqLock()

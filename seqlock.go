@@ -1,6 +1,7 @@
 package seqlock
 
 import (
+	"log"
 	"sync"
 	"sync/atomic"
 	"time"
@@ -60,4 +61,21 @@ func (seq *SeqLock) TimeBlock(ms int64) {
 	time.Sleep(time.Duration(ms) * time.Millisecond)
 	atomic.AddUint64(&seq.Counter, 1)
 	seq.Unlock()
+}
+
+// Logs current counter value and for how long
+// it has been running to the standard output
+func (seq *SeqLock) LiveLogger(ms int64) {
+
+	begin := time.Now().Unix()
+	prevCounter := -1
+	for {
+		tmp := seq.Counter
+		if tmp != uint64(prevCounter) {
+			log.Printf("seqlock counter: %d\n", tmp)
+		}
+		diff := time.Now().Unix()
+		log.Printf("live logger has been running for %d seconds\n", diff-begin)
+		time.Sleep(time.Duration(ms) * time.Millisecond)
+	}
 }
