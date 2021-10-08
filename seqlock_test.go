@@ -68,5 +68,4 @@ func TestTimeBlocking(t *testing.T) {
 	time.Sleep(1000 * time.Millisecond)
 
 	require.Equal(t, uint64(2), MockSeqLock.RdRead())
-
 }
