@@ -47,10 +47,12 @@ func TestReadWriteIntegration(t *testing.T) {
 	MockSeqLock := NewSeqLock()
 	MockSeqLock.WrLock()
 
+	require.Equal(t, uint64(1), MockSeqLock.RdRead())
 	require.Equal(t, true, MockSeqLock.RdAgain(1))
 
 	MockSeqLock.WrUnlock()
 
+	require.Equal(t, uint64(2), MockSeqLock.RdRead())
 	require.Equal(t, false, MockSeqLock.RdAgain(2))
 }
 

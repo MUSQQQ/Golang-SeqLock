@@ -8,7 +8,7 @@ import (
 )
 
 // SeqLock
-//Counter increases by 1 everytime the lock gets taken or released by writer
+// Counter increases by 1 everytime the lock gets taken or released by writer
 // sequence number is other name for it
 // inherited mutex is used only by writers
 type SeqLock struct {
@@ -41,7 +41,7 @@ func (seq *SeqLock) ResetCounter() {
 }
 
 // WrLock
-//counter becomes odd when writer
+// counter becomes odd when writer
 // starts modifying data
 func (seq *SeqLock) WrLock() {
 	seq.Lock()
@@ -49,7 +49,7 @@ func (seq *SeqLock) WrLock() {
 }
 
 // WrUnlock
-//counter becomes even when writer
+// counter becomes even when writer
 // starts modifying data
 func (seq *SeqLock) WrUnlock() {
 	atomic.AddUint64(&seq.Counter, 1)
